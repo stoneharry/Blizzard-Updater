@@ -1,0 +1,4 @@
+﻿Welcome to the Edge of Chaos beta.
+
+If you wish to uninstall this patch, delete Wow.exe and Data\patch-4.MPQ,
+ and download the 3.3.5a WoW executable from our forums.

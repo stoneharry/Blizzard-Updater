@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+%.1fGB                                        %1$.1f GB
+%.1fMB                                        %1$.1f MB
+%sAlreadyInstalled                            %1$s is already installed at this location. Please try installing to a different location.
+%sCDKey                                       %1$s CD-Key:
+%sExpansionCorrupted                          The %1$s language specific data is badly corrupted and has been removed.  If you wish to play World of Warcraft with the %1$s language pack, please download and apply the %1$s language pack from www.wow-europe.com.
+%sExpectedVersion%d.%d.%d.%d                  This update requires "%1$s" version %2$d.%3$d.%4$d.%5$d.
+%sExpectedVersion%d.%d.%d.%dExactlyButYouHaveNewer%d.%d.%d.%d   This update does not need to be applied. It requires version %2$d.%3$d.%4$d.%5$d of "%1$s", but you already have version %6$d.%7$d.%8$d.%9$d.
+%sExpectedVersion%d.%d.%d.%dExactlyButYouHaveOlder%d.%d.%d.%d   This update requires "%1$s" version %2$d.%3$d.%4$d.%5$d. You have an older version, %6$d.%7$d.%8$d.%9$d.
+%sExpectedVersion%d.%d.%d.%dOrNewerButYouHave%d.%d.%d.%d   This update requires "%1$s" version %2$d.%3$d.%4$d.%5$d or later. You have an older version, %6$d.%7$d.%8$d.%9$d.
+%sExpectedVersion%d.%d.%d.%dOrOlderButYouHave%d.%d.%d.%d   This update does not need to be applied. It requires a version of "%1$s" older than %2$d.%3$d.%4$d.%5$d, but you already have version %6$d.%7$d.%8$d.%9$d.
+%sNotExpectingVersion%d.%d.%d.%d              This update requires a version of "%1$s" other than %2$d.%3$d.%4$d.%5$d.
+Agree                                         &amp;Agree
+AuthenticationKey                             Authentication Key:
+Back                                          &amp;Back
+Cancel                                        &amp;Cancel
+CannotInstallInSystemDirectory                Blizzard Updater is unable to write to this location because it is a system directory.
+CantInstall%sOnCaseSensitiveVolume            %s may not work properly on a case-sensitive volume.
+CertainDiskHas%sButNeeds%sToInstall%s         The disk doesn't have enough free space to install %1$s. (More than %3$s is required, but only %2$s is available.) Please free up space.
+Choose                                        &amp;Choose
+CleaningUp                                    Cleaning up...
+ClickRepairButton                             To check this installation for problems, click the "Repair" button. The Repair tool can automatically fix many update errors.
+ConfirmAgreement                              Do you agree to the terms of the above agreement?
+ConflictWarning                               There may be problems applying this update. Do you want to continue anyway?
+ContactTechSupport                            If this problem persists, you may be able to solve it by uninstalling and then reinstalling the game. If you are unable to correct this problem, please contact Blizzard Technical Support.
+CouldntCreateFile%s                           The file "%1$s" could not be created.
+CouldntCreateFolder%s                         The folder "%1$s" could not be created.
+CouldntCreateRegistryKey%s%s                  The registry key "Blizzard Entertainment\%1$s\%2$s" could not be created.
+CouldntCreateShortcut%s                       Unable to create a shortcut for the file "%1$s".
+CouldntGetReadWritePermissionFor%s            The file "%s" cannot be removed because it's locked or currently in use.
+CouldntOpenFile                               A file could not be opened.
+CouldntOpenFile%s                             The file "%1$s" could not be opened.
+CouldntOpenURL%s                              The URL "%1$s" could not be opened. You may be able to open this URL by typing it into a web browser manually.
+CouldntRename%sTo%s                           The file "%1$s" could not be renamed to "%2$s".
+CreatedShortcut%s                             Created shortcut "%1$s".
+DeletedFile%s                                 Deleted file "%1$s".
+DeletedFolder%s                               Deleted folder "%1$s".
+Disagree                                      &amp;Disagree
+DiskHas%sButNeeds%sToInstall%s                This disk doesn't have enough free space to install %1$s. (More than %3$s is required, but only %2$s is available.) Please free up space.
+DiskIsTooFullFor%s                            The disk doesn't have enough free space to install %1$s. Please free up space.
+DontShareAuthenticationKeys                   Do not share your Authentication Key with others. This could lead to account termination and character deletion.
+DontShareCDKeys                               Do not share your CD-key with others. Only one person can be logged into Battle.net at once with a given CD-key.
+EndUserLicenseAgreement                       End User License Agreement
+EnterAuthenticationKey%d                      Please enter your %1$d character Authentication Key.
+EnterGameCDKey%dFromCase                      Please enter the %1$d character CD-key from the game's CD case.
+EnterGameOwnerName                            Please enter the name of the owner of this game.
+Error                                         Error
+Error%dClosing%s                              The file "%2$s" could not be closed, because an error %1$d occurred.
+Error%dCreating%sWith%dBytes                  The file "%2$s" (%3$d bytes) could not be created, because an error %1$d occurred.
+Error%dGettingSizeOf%s                        Unable to read the size of file "%2$s", because an error %1$d occurred.
+Error%dOpening%s                              The file "%2$s" could not be opened, because an error %1$d occurred.
+Error%dOpening%sInArchive%s                   The file "%2$s" in archive "%3$s" could not be opened, because an error %1$d occurred.
+Error%dReading%s                              The file "%2$s" could not be read, because an error %1$d occurred.
+Error%dWriting%s                              The file "%2$s" could not be written, because an error %1$d occurred.
+Error%sCreating%sWith%dBytes                  The file "%2$s" (%3$d bytes) could not be created, because an error occurred: %1$s.
+ErrorApplyingPatch%s                          The patch "%1$s" could not be applied.
+ErrorDeletingFile%s                           The file "%1$s" could not be deleted.
+ErrorDeletingFolder%s                         The folder "%1$s" could not be deleted.
+ErrorReading%s                                The file "%1$s" could not be read.
+ErrorRemovingRegistryKey%s%s                  The registry key "Blizzard Entertainment\%1$s\%2$s" could not be removed.
+ErrorVerifying%sonDisk%s                      An error was detected while verifying the contents of the file "%1$s". There may be a problem with your system, or with the drive at %2$s. You can try updating again.
+ErrorWriting%s                                The file "%1$s" could not be written.
+File%sAlreadyExists                           A file named "%1$s" already exists.
+File%sAlreadyOpenedAs%s                       The file "%1$s" could not be opened because it's already open as "%2$s".
+File%sIsCorrupt                               The file "%1$s" appears to be corrupt.
+File%sIsOver4GB                               The file "%1$s" is larger than 4GB, which is unexpected.
+File%sIsReadOnly                              The file "%1$s" is read only and cannot be updated.
+File%sNotFound                                The file "%1$s" could not be found.
+File%sWillBeOverwritten                       The file "%1$s" will be overwritten.
+FilesMayBeLeftBehind                          The update was stopped, but some files may have been left behind on the disk.
+FilesMustBeClosed                             The patching process cannot continue until all files are closed.
+Folder%sAlreadyExists                         The folder "%1$s" already exists.
+Folder%sNotFound                              The folder "%1$s" could not be found.
+FolderContentsWillBeErased                    The existing contents of this folder will be erased.
+IncorrectInformation                          The information provided was not correct.
+Install                                       &amp;Install
+InstallationIsLocale%sButPatchIsForLocale%s   This update requires the "%2$s" version of this software.  Currently the "%1$s" version is installed.
+InstallCanceled                               The update was cancelled.
+InstalledFile%s                               Created file "%1$s".
+InstalledFolder%s                             Created folder "%1$s".
+InstalledWithWarnings                         The update completed with the following warnings:
+Installer                                     Blizzard Updater
+InstallerCouldntInitialize                    Blizzard Updater could not be initialized.
+InstallFailed                                 The update could not be applied.
+Installing%s                                  Writing "%1$s"...
+Installing%sInto%s                            Writing %1$s into "%2$s"...
+Installing%sTo%sOn%s                          Installing %1$s at "%2$s" on %3$s.
+InstallSuccessful                             The update was successful.
+InvalidAuthenticationKey                      The provided Authentication Key was invalid. Please make sure that it was typed in correctly.
+InvalidCDKeyFor%s                             The CD-Key entered in the %1$s field was invalid. Please make sure that it was typed in correctly.
+InvalidUserName                               Please provide a valid name. User names cannot exceed 31 characters in length.
+MacOS_%sWillBeInstalledInto                   %1$s will be installed into:
+MacOS_AvailableDiskSpace                      Available Disk Space:
+MacOS_InstallationSize                        Installation Size:
+MeaningOfExtensionADT                         terrain data
+MeaningOfExtensionBLP                         texture data
+MeaningOfExtensionDBC                         database info
+MeaningOfExtensionLUA                         interface data
+MeaningOfExtensionM2                          model data
+MeaningOfExtensionMP3                         sound effects
+MeaningOfExtensionSBT                         interface data
+MeaningOfExtensionSIG                         interface data
+MeaningOfExtensionTOC                         interface data
+MeaningOfExtensionTTF                         font data
+MeaningOfExtensionWAV                         sound effects
+MeaningOfExtensionWDL                         terrain data
+MeaningOfExtensionWDT                         terrain data
+MeaningOfExtensionWMO                         world object data
+MeaningOfExtensionXML                         interface data
+MeaningOfExtensionXSD                         interface data
+MediaError%dReading%sin%sonDisk%s             Blizzard Updater was unable to read the file "%3$s". This error may be caused by problems with the media or drive at %4$s--for example, a scratched or dirty CD-ROM/DVD-ROM, hard drive corruption, or a networking problem while downloading the update. (The data being read was "%2$s", and the error code was %1$d.)
+MediaError%dReading%sonDisk%s                 Blizzard Updater was unable to read the file "%2$s". This error may be caused by problems with the media or drive at %3$s--for example, a scratched or dirty CD-ROM/DVD-ROM, hard drive corruption, or a networking problem while downloading the update. (The error code was %1$d.)
+MovedFile%sTo%s                               Moved file "%1$s" to "%2$s".
+Name                                          Name:
+Next                                          &amp;Next
+NoLanguagesInstalled                          The game installation is corrupt, because no installed languages could be found. Please reinstall the game.
+OK                                            &amp;OK
+PatchMissingData%s                            Patch can't be applied because it is missing data for: "%1$s".
+PathTooLong                                   A file path's length exceeds the maximum size. Please try using a path with a shorter name.
+PauseGoogleDesktopSearch                      Google Desktop Search can cause problems installing Blizzard products. Please pause or close Google Desktop Search before continuing this installation. See http://desktop.google.com/support for additional information.
+PleaseInsertCD%s                              Please insert the CD labeled "%1$s."
+PreparingToInstall                            Preparing to update...
+Pretty_deDE                                   German
+Pretty_enGB                                   European English
+Pretty_enUS                                   North American English
+Pretty_esES                                   Spanish
+Pretty_esMX                                   Latin American Spanish
+Pretty_frFR                                   French
+Pretty_koKR                                   Korean
+Pretty_ruRU                                   Russian
+Pretty_zhCN                                   Simplified Chinese
+Pretty_zhTW                                   Traditional Chinese
+RepairButton                                  Repair...
+RequiredFile%sMissing                         The file "%1$s" is required, but is not in the destination directory.
+RequiredFolder%sMissing                       The folder "%1$s" is required, but is not in the destination directory.
+ScrollToEnd                                   (Please read this agreement. The "Agree" button activates when you reach the end.)
+SelectFolder                                  Select &amp;Folder...
+Stop                                          Stop
+TryDownloadingAgain                           You may need to download this file again.
+UnableToLoadData                              Blizzard Updater was unable to load a necessary file.
+UnableToOpenURL                               Blizzard Updater was unable to open a URL.
+UnableToStartUp                               Blizzard Updater was unable to start up.
+UnknownExtension                              miscellaneous data
+UpdateRequiresLocale%sButYouHave%s            This update requires the %1$s version of this software. Currently the %2$s version is installed.
+WaitingForFileClose                           Waiting for files to close...
+Warning                                       Warning
+Win32_CouldNotCreateAddRemoveProgramsEntry%s  Unable to create an entry in the Add/Remove Programs Control Panel for "%1$s."
+Win32_CouldNotRemoveAddRemoveProgramsEntry%s  Unable to remove an entry in the Add/Remove Programs Control Panel for "%1$s."
+Win32_CreateShortcutOnDesktop                 Create shortcut on desktop
+Win32_DirectoryDoesNotExist                   Error: That directory does not exist. 
+Win32_DirectoryExists                         Warning: That directory exists. 
+Win32_DirectoryNonEmpty                       Warning: That directory exists and is not empty. 
+Win32_GenericRestartMessage                   The software that was installed requires you to restart your computer. Do you want to restart now?
+Win32_InstallationDestinationDirectory        Installation Destination Directory
+Win32_InstallTerminated                       Installation Terminated:
+Win32_InvalidDirectory                        Error: Invalid directory chosen. 
+Win32_NotEnoughSpace                          Error: There is not enough free space on this drive. 
+Win32_PleaseChooseDirectory                   Please choose a directory to install to:
+Win32_RestartRequired                         Restart Required
+Win32_RestoreDefault                          &amp;Restore Default
+Win32_SpaceAvailable                          Space Available:
+Win32_SpaceRequired                           Space Required:
+Win32_SuccessfulInstall%sRestartMessage       Before playing %1$s, you will need to restart your computer. Do you want to restart now?
+DoesntReplyLauncher                           The Launcher doesn't reply to a request.
+LocaleString                                  enGB
+Migrating%sInto%s                             Migrating %s into "%s"...
+</localization>

@@ -1,0 +1,59 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+  <title>Blizzard Updater Log</title>
+  <style type="text/css">
+	table   { border: 1px solid #aaa; width: 100%; background-color:#ccc; color:black; font-family: arial, helvetica, sans-serif; font-weight: bold; font-size:120%; margin-bottom: 10px; }
+	td      { color: #333; vertical-align: middle; }
+	pre 	{ font-family: Verdana, sans-serif; font-size: 80%; border-width: 1; border-left: 1; border-right: 0; border-top: 0; border-bottom: 0; padding-left: 7px; border-color: #666; border-style: solid; margin-left: 20px; margin-top: 0px; margin-bottom: 10px; }
+	.button { display: none; font-family: Arial, sans-serif; background-color: white; border-width: 1; border-style: solid; border-color: #999; font-size: 14px; width: 18px; height: 16px; cursor: pointer; text-decoration: none; margin: 2px; font-weight: 700; color: #900; }
+	.close  { padding-left: 1px; padding-right: 2px; }
+	.open   {}
+	.ver 	{ color: #900; }
+  </style>
+  <script><!--
+  function Expand( x )
+  {
+  	x = x.replace( /Expand/, "" );
+  	document.getElementById( "Block" + x ).style.display = "inline";
+  	document.getElementById( "Expand" + x ).style.display = "none";
+  	document.getElementById( "Collapse" + x ).style.display = "inline";
+  }
+  function Collapse( x )
+  {
+  	x = x.replace( /Collapse/, "" );
+  	document.getElementById( "Block" + x ).style.display = "none";
+  	document.getElementById( "Expand" + x ).style.display = "inline";
+  	document.getElementById( "Collapse" + x ).style.display = "none";
+  }
+  function NumberIncremental( tagType, tagId, prefixId )
+  {
+    var el = document.getElementsByTagName( tagType );   	
+    var which = 0;
+    for( index=0; index<el.length; index++ )
+    {
+      if( el[index].id == tagId )
+      {
+        el[index].id = prefixId + which++;
+        el[index].display = "inline";
+      }
+    }
+  }
+  function Init()
+  {
+    NumberIncremental( "div", "Blocker", "Block" );
+    NumberIncremental( "a", "Collapser", "Collapse" );
+    NumberIncremental( "a", "Expander", "Expand" );
+    Expand( "Expand0" );
+    for( index=1;; index++ )
+    {
+      if( document.getElementById( "Block"+index ) )
+        Collapse( "Collapse"+index );
+      else
+        break;
+    }	
+  }
+  //-->
+  </script>
+</head>
+<body onload="Init();">

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<product_data>
+ProductLocaleCode                  enGB
+BaseInstallRegistryKey             World of Warcraft/InstallPath
+BaseUninstallRegistryKey           World of Warcraft/UninstallPath
+ProductName                        World of Warcraft Update
+DisplayProductName                 World of Warcraft Update
+StartMenuFolderName                World of Warcraft
+StartMenuShortcutName              World of Warcraft
+StartMenuRepairShortcutName        World of Warcraft - Repair
+StartMenuenGBPackShortcutName      World of Warcraft English
+StartMenufrFRPackShortcutName      World of Warcraft Français
+StartMenudeDEPackShortcutName      World of Warcraft Deutsch
+StartMenuesESPackShortcutName      World of Warcraft Español
+LogFileName                        Logs\Blizzard Updater Log
+OverrideTitle                      Blizzard Updater
+AccountBillingShortcutName         Account Billing
+TechSupportShortcutName            Technical Support
+ExpManualShortcutName              ExpManualData
+ReadMeShortcutName                 Readme
+AddRemoveProgramsKey               World of Warcraft
+</product_data>
