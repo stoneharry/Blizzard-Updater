@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 2.0)
 project (BsnI)
 
 find_package (ZLIB REQUIRED)
-include_directories (${ZLIB_INCLUDE_DIR})
 
+include_directories (${ZLIB_INCLUDE_DIR})
 include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable (extract extract_bsni.cpp zlib.cpp)
