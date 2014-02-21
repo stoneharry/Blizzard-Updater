@@ -56,6 +56,15 @@ try
     extract_entry (input_file, &entry);
   }
 
+  std::cout << "extracting: base.exe" << "\n";
+
+  file output("base.exe", file::write);
+  std::vector<unsigned char> base;
+
+  input_file.seek(0);
+  input_file.read_into(&base, table->base);
+  output.write_from (base);
+
   return 0;
 }
 catch (const std::exception& e)
