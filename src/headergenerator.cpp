@@ -1,28 +1,25 @@
 #include <fstream>
 #include <ostream>
-#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
 #include <string>
 
-typedef unsigned long ULONG;
-
-ULONG crc32_table[256];
-ULONG ulPolynomial = 0x04c11db7;
+unsigned long crc32_table[256];
+unsigned long ulPolynomial = 0x04c11db7;
 
 using namespace std;
 
 struct UpdateFileHeader
 {
-   UINT16 HdrSize; // always 0x0018
-   UINT8 version; // always 0x04
-   UINT8 override; // 0x01 => override with new file; 0x04 => update file (bsdiff)
-   UINT32 crc32; // of the file before update
-   UINT32 OldFileSize; // file size before the update (uncompressed)
-   UINT32 NewFileSize; // size of the entire file after the update is applied (uncompressed)
-   UINT32 unknown6; // always 0
-   UINT32 unknown7; // always 0
+   unsigned short HdrSize; // always 0x0018
+   unsigned char version; // always 0x04
+   unsigned char override; // 0x01 => override with new file; 0x04 => update file (bsdiff)
+   unsigned int crc32; // of the file before update
+   unsigned int OldFileSize; // file size before the update (uncompressed)
+   unsigned int NewFileSize; // size of the entire file after the update is applied (uncompressed)
+   unsigned int unknown6; // always 0
+   unsigned int unknown7; // always 0
 };
 
 // Below begins copy + pasted code slightly modified
@@ -105,10 +102,10 @@ struct SearchFilea
     }
 };
 
-ULONG Reflect(ULONG ref, char ch)
+unsigned long Reflect(unsigned long ref, char ch)
 {                                 // Used only by Init_CRC32_Table()
 
-    ULONG value(0);
+    unsigned long value(0);
 
     // Swap bit 0 for bit 7
     // bit 1 for bit 6, etc.
@@ -135,10 +132,10 @@ void InitCrcTable()
 
 }
 
-int Get_CRC(unsigned char* buffer, ULONG bufsize)
+int Get_CRC(unsigned char* buffer, unsigned long bufsize)
 {
 
-    ULONG  crc(0xffffffff);
+    unsigned long  crc(0xffffffff);
     int len;
     len = bufsize;
     // Save the text in the buffer.
@@ -168,12 +165,12 @@ long FileSize(FILE *input)
 }
 
 
-UINT32 getCRCFromFile(string path)
+unsigned int getCRCFromFile(string path)
 { 
 
   FILE *fs = fopen(path.c_str(), "rb");   //open file for reading 
 
-  UINT32 crc;
+  unsigned int crc;
   long bufsize = FileSize(fs), result;
   unsigned char *buffer = new unsigned char[bufsize];
 
@@ -215,7 +212,7 @@ int main(void)
 
     for (int i = 0; i != sfa.count(); ++i)
     {
-		UINT32 crc = getCRCFromFile(sfa[i].c_str());
+                unsigned int crc = getCRCFromFile(sfa[i].c_str());
 
 		string path(sfa[i].c_str());
 		string filename;
