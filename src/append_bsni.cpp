@@ -12,7 +12,7 @@ try
 {
   if (argc <= 4)
   {
-    throw std::runtime_error ("error: no filename(s) given (arguments: <base> <output> <mpq> <exe> [<files...>])");
+    throw std::runtime_error ("no filename(s) given (arguments: <base> <output> <mpq> <exe> [<files...>])");
   }
 
   const std::string base (argv[1]);

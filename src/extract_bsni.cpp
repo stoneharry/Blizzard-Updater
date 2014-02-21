@@ -25,7 +25,7 @@ try
 {
   if (argc != 2)
   {
-    throw std::runtime_error ("error: no filename given");
+    throw std::runtime_error ("no filename given");
   }
 
   const std::string input_filename (argv[1]);
@@ -45,7 +45,7 @@ try
   }
   if (pos == 0)
   {
-    throw std::runtime_error ("error: 'InsB' not found\n");
+    throw std::runtime_error ("'InsB' not found\n");
   }
 
   for (int i (0); i < table->entry_count; ++i)
