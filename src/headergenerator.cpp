@@ -1,15 +1,8 @@
-#include <fstream>
-#include <ostream>
-#include <stdio.h>
-#include <stdlib.h>
 #include <vector>
-#include <string>
-#include <boost/filesystem.hpp>
 #include <boost/crc.hpp>
 
 #include "file.hpp"
-
-namespace fs = boost::filesystem;
+#include "util.hpp"
 
 struct UpdateFileHeader
 {
@@ -23,22 +16,6 @@ struct UpdateFileHeader
   unsigned int unknown7; // always 0
 };
 
-fs::path makeRelative(fs::path fromPath, fs::path toPath)
-{
-  fs::path res;
-
- for(fs::path::iterator from = fromPath.begin(), to = toPath.begin(); to != toPath.end(); ++to)
- {
-   if(*from != *to)
-     res /= (*to);
-
-   if(from != fromPath.end())
-     ++from;
- }
-
- return res;
-}
-
 int main(int argc, char **argv)
 try
 {
@@ -47,6 +24,9 @@ try
 
   fs::path inDir(argv[1]);
   fs::path outDir(argv[2]);
+
+  if(!fs::exists(inDir))
+    throw std::runtime_error("inDir does not exist");
 
   for(fs::recursive_directory_iterator it(inDir), end; it != end; ++it)
   {
