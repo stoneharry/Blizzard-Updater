@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <vector>
 #include <string>
-#include <Fi
+#include <boost/filesystem.hpp>
+#include <boost/crc.hpp>
 
 #include "file.hpp"
 
-unsigned long crc32_table[256];
-unsigned long ulPolynomial = 0x04c11db7;
+namespace fs = boost::filesystem;
 
 struct UpdateFileHeader
 {
@@ -23,162 +23,68 @@ struct UpdateFileHeader
   unsigned int unknown7; // always 0
 };
 
-unsigned long Reflect(unsigned long ref, char ch)
-{                                 // Used only by Init_CRC32_Table()
-
-  unsigned long value(0);
-
-  // Swap bit 0 for bit 7
-  // bit 1 for bit 6, etc.
-  for(int i = 1; i < (ch + 1); i++)
-  {
-    if(ref & 1)
-      value |= 1 << (ch - i);
-    ref >>= 1;
-  }
-  return value;
-}
-
-void InitCrcTable()
+fs::path makeRelative(fs::path fromPath, fs::path toPath)
 {
+  fs::path res;
 
-  // 256 values representing ASCII character codes.
-  for(int i = 0; i <= 0xFF; i++)
-  {
-    crc32_table[i]=Reflect(i, 8) << 24;
-    for (int j = 0; j < 8; j++)
-      crc32_table[i] = (crc32_table[i] << 1) ^ (crc32_table[i] & (1 << 31) ? ulPolynomial : 0);
-    crc32_table[i] = Reflect(crc32_table[i], 32);
-  }
+ for(fs::path::iterator from = fromPath.begin(), to = toPath.begin(); to != toPath.end(); ++to)
+ {
+   if(*from != *to)
+     res /= (*to);
 
-}
+   if(from != fromPath.end())
+     ++from;
+ }
 
-int Get_CRC(unsigned char* buffer, unsigned long bufsize)
-{
-
-  unsigned long  crc(0xffffffff);
-  int len;
-  len = bufsize;
-  // Save the text in the buffer.
-
-  // Perform the algorithm on each character
-  // in the string, using the lookup table values.
-
-  for(int i = 0; i < len; i++)
-    crc = (crc >> 8) ^ crc32_table[(crc & 0xFF) ^ buffer[i]];
-
-
-  // Exclusive OR the result with the beginning value.
-  return crc^0xffffffff;
-
-}
-
-long FileSize(FILE *input)
-{
-
-  long fileSizeBytes;
-  fseek(input, 0, SEEK_END);
-  fileSizeBytes = ftell(input);
-  fseek(input, 0, SEEK_SET);
-
-  return fileSizeBytes;
-
-}
-
-
-unsigned int getCRCFromFile(string path)
-{ 
-
-  FILE *fs = fopen(path.c_str(), "rb");   //open file for reading
-
-  unsigned int crc;
-  long bufsize = FileSize(fs), result;
-  unsigned char *buffer = new unsigned char[bufsize];
-
-  if(buffer == NULL)
-  {
-    printf("\nError out of memory\n");
-    return 0;
-
-  }
-  
-  // copy the file into the buffer:
-  result = fread (buffer,1,bufsize,fs);
-  fclose(fs);
-
-  if(result != bufsize)
-  {
-    printf("\nError reading file %s\n", path.c_str());
-    return 0;
-  }
-
-
-  InitCrcTable();
-  crc = Get_CRC(buffer, bufsize);
-  delete [] buffer;
-
-  return crc;
+ return res;
 }
 
 int main(int argc, char **argv)
+try
 {
-  std::tr2::sys
+  if(argc != 3)
+    throw std::runtime_error ("no dir(s) given \n usage: <inDir> <outDir>");
 
-  /*
-  for (int i = 0; i != sfa.count(); ++i)
+  fs::path inDir(argv[1]);
+  fs::path outDir(argv[2]);
+
+  for(fs::recursive_directory_iterator it(inDir), end; it != end; ++it)
   {
-    unsigned int crc = getCRCFromFile(sfa[i].c_str());
+    if(!fs::is_regular_file(it->status()))
+      continue;
 
-    string path(sfa[i].c_str());
-    string filename;
+    fs::path relative(makeRelative(inDir, it->path()));
+    fs::path outFile(outDir / relative);
 
-    size_t pos = path.find_last_of("\\");
-    if(pos != string::npos)
-      filename.assign(path.begin() + pos + 1, path.end());
-    else
-      filename = path;
+    file in(it->path().string(), file::read);
 
-    ofstream OutFile;
+    std::vector<unsigned char> data(in.read_all());
+    unsigned int crc = boost::crc<32, 0x04c11db7, 0xFFFF, 0, false, false>(data.data(), data.size());
 
-    UpdateFileHeader test;
-    test.HdrSize = 0x0018;
-    test.NewFileSize = 0;
-    test.OldFileSize = 0;
-    test.override = 0x01;
-    test.crc32 = crc;
-    test.unknown6 = 0;
-    test.unknown7 = 0;
-    test.version = 0x04;
+    UpdateFileHeader header;
+    header.HdrSize = 0x0018;
+    header.NewFileSize = in.filesize();
+    header.OldFileSize = header.NewFileSize;
+    header.override = 0x01;
+    header.crc32 = crc;
+    header.unknown6 = 0;
+    header.unknown7 = 0;
+    header.version = 0x04;
 
-    ifstream file(sfa[i].c_str(), ios::in | ios::binary | ios::ate);
-    ifstream::pos_type fileSize;
-    char* fileContents;
-    if(file.is_open())
-    {
-      fileSize = file.tellg();
-      test.NewFileSize = fileSize;
-      test.OldFileSize = fileSize;
-      fileContents = new char[fileSize];
-      file.seekg(0, ios::beg);
-      if(!file.read(fileContents, fileSize))
-      {
-        printf("Failed to read.\n");
-      }
-      file.close();
-      OutFile.open(sfa[i].c_str(), ios::binary);
+    std::cout << "writing file " << outFile << std::endl;
 
-      OutFile.write(reinterpret_cast<const char*>(&test), sizeof(UpdateFileHeader));
+    if(!fs::exists(outFile.parent_path()))
+      fs::create_directories(outFile.parent_path());
 
-      //const char* output = reinterpret_cast<const char*>(data);
+    file out(outFile.string(), file::write);
 
-      //OutFile.write(output, 24);
-      OutFile.write(fileContents, fileSize);
-
-      delete[] fileContents;
-    }
-
-    OutFile.close();
+    out.write_from(header);
+    out.write_from(data);
   }
-  */
+
   return 0;
+}
+catch (const std::exception& e)
+{
+  std::cerr << "error: " << e.what() << "\n";
 }
