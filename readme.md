@@ -1,4 +1,4 @@
-# Blizzard Upadater Generator
+# Blizzard Installer Generator
 
 ### Quick Start
 
