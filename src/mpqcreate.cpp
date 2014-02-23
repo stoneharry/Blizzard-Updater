@@ -1,61 +1,50 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include <boost/filesystem.hpp>
-#include <boost/foreach.hpp>
-#include <boost/algorithm/string/replace.hpp>
 #include <boost/program_options.hpp>
 #include <StormLib.h>
 
-using namespace boost::filesystem;
+#include "util.hpp"
+
+namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
-void addFile(HANDLE mpq, path file, std::string mpqPath)
+struct FileEntry
 {
-  boost::algorithm::replace_all(mpqPath, "/", "\\");
+  FileEntry(fs::path pRealPath, fs::path pMpqPath)
+    : realPath(pRealPath)
+    , mpqPath(pMpqPath)
+  {}
 
-  if(!SFileAddFileEx(mpq, file.string().c_str(), mpqPath.c_str(), MPQ_FILE_COMPRESS, MPQ_COMPRESSION_ZLIB, MPQ_COMPRESSION_ZLIB))
-  {
-    std::cout << "Error: " << GetLastError() << std::endl;
-    return;
-  }
+  fs::path realPath;
+  fs::path mpqPath;
+};
 
-  std::cout << "added file " << mpqPath << std::endl;
-}
 
-void addFile(HANDLE mpq, path file)
+// copy & pasta
+// from http://www.rosshemsley.co.uk/2011/02/creating-a-progress-bar-in-c-or-any-other-console-app/
+static inline void loadbar(unsigned int x, unsigned int n, unsigned int w = 50)
 {
-  addFile(mpq, file, file.string());
-}
+    if ((x != n))
+      return;
 
-void addDir(HANDLE mpq, path dir)
-{
-  dir = absolute(dir);
-  dir.make_preferred();
+    float ratio  =  x/(float)n;
+    int   c      =  ratio * w;
 
-  size_t pos(dir.string().size() + 1);
-  std::string preferredSlash = boost::filesystem::path("/").make_preferred().native();
-  recursive_directory_iterator begin(dir), end;
-
-  if(dir.native().find_last_of(preferredSlash) == pos-2)
-    pos -= 1;
-
-  BOOST_FOREACH(path const &p, std::make_pair(begin, end))
-  {
-    if(!is_regular_file(p)) continue;
-
-    std::string mpqPath(p.string().substr(pos));
-    addFile(mpq, p, mpqPath);
-  }
+    std::cout << std::setw(3) << (int)(ratio*100) << "% [";
+    for (int x=0; x<c; x++) std::cout << "=";
+    for (int x=c; x<w; x++) std::cout << " ";
+    std::cout << "]\r" << std::flush;
 }
 
 int main(int argc, char** argv)
+try
 {
-  int opt;
   po::options_description desc("Required options");
   desc.add_options()
       ("mpq", po::value<std::string>(), "the mpq to create")
-      ("files", po::value<std::vector<std::string> >(), "input files")
-  ;
+      ("files", po::value<std::vector<std::string> >(), "input files");
 
   po::positional_options_description p;
 
@@ -68,36 +57,54 @@ int main(int argc, char** argv)
 
   if (!vm.count("files") || !vm.count("mpq"))
   {
-      std::cout << desc << std::endl;
+      std::cout << "usage: <mpq> [<files> ...]" << std::endl;
       return 1;
   }
 
+  std::vector<std::string> files(vm["files"].as< std::vector<std::string> >());
+  std::vector<FileEntry> toAdd;
+  fs::path mpqPath(vm["mpq"].as<std::string>());
 
-  path mpqPath(vm["mpq"].as<std::string>());
+  for(std::vector<std::string>::iterator path = files.begin(); path != files.end(); ++path)
+  {
+    if(fs::is_regular_file(*path))
+      toAdd.push_back(FileEntry(*path, *path));
+
+    if(!fs::is_directory(*path)) //no symlinks etc
+      continue;
+
+    for(fs::recursive_directory_iterator file(*path), end; file != end; ++file)
+      if(fs::is_regular_file(file->path()))
+        toAdd.push_back(FileEntry(file->path(), makeRelative(*path, file->path())));
+  }
+
+  for(std::vector<FileEntry>::iterator it = toAdd.begin(); it != toAdd.end(); ++it)
+    std::cout << it->realPath << " >> " << it->mpqPath << std::endl;
+
   HANDLE mpq;
+  if(!SFileCreateArchive(mpqPath.string().c_str(), MPQ_CREATE_ARCHIVE_V2, toAdd.size(), &mpq))
+    throw std::runtime_error("couldn't create mpq");
 
   SFileSetLocale(0);
 
-  if(exists(mpqPath)) remove(mpqPath);
-  if(!SFileCreateArchive(mpqPath.string().c_str(), MPQ_CREATE_ARCHIVE_V2, 8192, &mpq))
+  size_t counter(0);
+  for(std::vector<FileEntry>::iterator it = toAdd.begin(); it != toAdd.end(); ++it)
   {
-    std::cout << "Error creating mpq: " << GetLastError() << std::endl;
-    return 1;
+    if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), 0, 0, 0))
+      std::cout << "couldn't add file " << it->realPath << std::endl;
+
+    loadbar(toAdd.size(), ++counter);
   }
 
-
-  std::vector<std::string> files(vm["files"].as< std::vector<std::string> >());
-
-  for(std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it)
-  {
-    path filePath(*it);
-
-    if(is_directory(filePath)) addDir(mpq, filePath);
-    if(is_regular(filePath)) addFile(mpq, filePath);
-  }
-
-  std::cout << "compressing archive now" << std::endl;
+  std::cout << "Compressing mpq" << std::endl;
   SFileCompactArchive(mpq, NULL, false);
+
   SFileFlushArchive(mpq);
   SFileCloseArchive(mpq);
+
+  return 0;
+}
+catch (const std::exception& e)
+{
+  std::cerr << "error: " << e.what() << "\n";
 }
