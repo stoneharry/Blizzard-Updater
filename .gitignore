@@ -1,2 +1,2 @@
 src/CMakeLists.txt.user
-data
+data/*
