@@ -1,3 +1,4 @@
 # <realpath>;<replacement>;<patch>
 base;;base
 pc-game-hdfiles;;base
+Locale;deDE;deDE

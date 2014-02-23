@@ -33,7 +33,7 @@ public:
 
   std::string getLine(std::string path)
   {
-    std::string target(boost::algorithm::replace_first_copy(path, element+"\\", replacement));
+	  std::string target(boost::algorithm::replace_first_copy(path, element+"\\", replacement.empty() ? "" : replacement+"\\"));
     return target + ";" + path + ";" + patch;
   }
 
