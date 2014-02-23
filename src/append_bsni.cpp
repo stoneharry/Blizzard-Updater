@@ -6,6 +6,9 @@
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <boost\filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 int main(int argc, char **argv)
 try
@@ -33,22 +36,23 @@ try
 
   for (int i (0); i < entry_count; ++i)
   {
-    const std::string name (argv[i+4]);
+    const fs::path name (argv[i+4]);
     std::cout << "adding " << name << "\n";
 
-    if (name.size() >= 0x40)
+    if (name.string().size() >= 0x40)
     {
       std::cerr << "warning: filename " << name << " is longer than 0x3F characters and will be truncated!\n";
     }
 
-    const std::vector<unsigned char> data (file (name, file::read).read_all());
+    const std::vector<unsigned char> data (file (name.string(), file::read).read_all());
     const std::vector<unsigned char> deflated_data (zlib::deflate (data));
 
+	const std::string filename(name.filename().string());
     BsnI_entry* entry (reinterpret_cast<BsnI_entry*> (&entries[sizeof(BsnI_entry)*i]));
     entry->data = output_file.tell();
     entry->inflated_data_size = data.size();
     entry->data_size = deflated_data.size();
-    strncpy (entry->filename, argv[i+4], 0x3F);
+	strncpy (entry->filename, filename.c_str(), 0x3F);
     entry->filename[0x3F] = '\0';
 
     output_file.write_from (deflated_data);
