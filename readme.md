@@ -1,4 +1,20 @@
-Step 1)
+# Blizzard Upadater Generator
+
+### Quick Start
+
+1. Put things to install in the "data" dir
+2. run "createInstaller.bat"
+
+### rules.txt
+
+This file holds the ruleset for listgenerator. its format is pretty simple:
+```
+<realpath>;<replacement>;<patch>
+```
+
+## Old Stuff
+
+1. Step
 
 Open \MPQ
 
@@ -13,7 +29,7 @@ Run HeaderGenerator.exe JUST ONCE. This will add a header to the Item.DBC and Wo
 
 Now turn the contents of \MPQ into a MPQ.
 
-Step 2)
+2. Step
 
 Bring your new MPQ to \Assemble folder.
 Name your MPQ "mpq.mpq".
@@ -21,7 +37,7 @@ Run GenerateExe.bat.
 
 Your Blizzard Installer should now work. You might want to test it.
 
-Step 3)
+3. Step
 
 Make a new MPQ and add your Blizzard Installer to it.
 Make a file called "prepatch.lst". Add these two lines to it:
