@@ -1,5 +1,6 @@
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 #include "file.hpp"
 #include "util.hpp"

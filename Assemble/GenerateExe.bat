@@ -1,1 +1,0 @@
-append.exe example_base.exe HeroesWoWInstaller.exe mpq.mpq Installer.exe RichEd20.dll Unicows.dll

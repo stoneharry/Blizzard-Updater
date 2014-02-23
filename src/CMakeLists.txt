@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.0)
 
 project(BsnI)
 
+set(Boost_USE_STATIC_LIBS   ON)
+set(Boost_USE_MULTITHREADED ON)
 
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIR})
