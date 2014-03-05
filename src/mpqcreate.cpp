@@ -35,7 +35,7 @@ static inline void loadbar(unsigned int x, unsigned int n, unsigned int w = 50)
     std::cout << std::setw(3) << (int)(ratio*100) << "% [";
     for (int x=0; x<c; x++) std::cout << "=";
     for (int x=c; x<w; x++) std::cout << " ";
-    std::cout << "]\r" << std::flush;
+    std::cout << "]" << std::endl << std::flush;
 }
 
 int main(int argc, char** argv)
