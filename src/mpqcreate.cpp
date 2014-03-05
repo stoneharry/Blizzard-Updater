@@ -26,12 +26,12 @@ struct FileEntry
 // from http://www.rosshemsley.co.uk/2011/02/creating-a-progress-bar-in-c-or-any-other-console-app/
 static inline void loadbar(unsigned int x, unsigned int n, unsigned int w = 50)
 {
-  if ( (x != n) && (x % (n/100) != 0) ) return;
+  if (x > n) return;
 
-  float ratio  =  x/(float)n;
+  float ratio  =  n ? x/(float)n : 0;
   int   c      =  ratio * w;
 
-  std::cout << std::setw(3) << (int)(ratio*100) << "% [";
+  std::cout << std::setw(3) << x << "/" << n << " [";
   for (int x=0; x<c; x++) std::cout << "=";
   for (int x=c; x<w; x++) std::cout << " ";
   std::cout << "]\r" << std::flush;
