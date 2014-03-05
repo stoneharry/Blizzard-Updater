@@ -90,7 +90,7 @@ try
   size_t counter(0);
   for(std::vector<FileEntry>::iterator it = toAdd.begin(); it != toAdd.end(); ++it)
   {
-    if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), 0, 0, 0))
+    if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), MPQ_FILE_COMPRESS, MPQ_COMPRESSION_LZMA, MPQ_COMPRESSION_LZMA))
       std::cout << "couldn't add file " << it->realPath << std::endl;
 
     loadbar(toAdd.size(), ++counter);
