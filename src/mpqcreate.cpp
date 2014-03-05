@@ -102,7 +102,7 @@ try
   {
     loadbar(++counter, toAdd.size());
 
-    if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), MPQ_FILE_COMPRESS, MPQ_COMPRESSION_LZMA, MPQ_COMPRESSION_LZMA))
+    if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), MPQ_FILE_COMPRESS, MPQ_COMPRESSION_BZIP2, MPQ_COMPRESSION_BZIP2))
       std::cout << "couldn't add file " << it->realPath << std::endl;
   }
 
