@@ -26,16 +26,15 @@ struct FileEntry
 // from http://www.rosshemsley.co.uk/2011/02/creating-a-progress-bar-in-c-or-any-other-console-app/
 static inline void loadbar(unsigned int x, unsigned int n, unsigned int w = 50)
 {
-    if ((x != n))
-      return;
+  if ( (x != n) && (x % (n/100) != 0) ) return;
 
-    float ratio  =  x/(float)n;
-    int   c      =  ratio * w;
+  float ratio  =  x/(float)n;
+  int   c      =  ratio * w;
 
-    std::cout << std::setw(3) << (int)(ratio*100) << "% [";
-    for (int x=0; x<c; x++) std::cout << "=";
-    for (int x=c; x<w; x++) std::cout << " ";
-    std::cout << "]" << std::endl << std::flush;
+  std::cout << std::setw(3) << (int)(ratio*100) << "% [";
+  for (int x=0; x<c; x++) std::cout << "=";
+  for (int x=c; x<w; x++) std::cout << " ";
+  std::cout << "]\r" << std::flush;
 }
 
 int main(int argc, char** argv)
@@ -101,13 +100,13 @@ try
   size_t counter(0);
   for(std::vector<FileEntry>::iterator it = toAdd.begin(); it != toAdd.end(); ++it)
   {
+    loadbar(++counter, toAdd.size());
+
     if(!SFileAddFileEx(mpq, it->realPath.string().c_str(), it->mpqPath.string().c_str(), MPQ_FILE_COMPRESS, MPQ_COMPRESSION_LZMA, MPQ_COMPRESSION_LZMA))
       std::cout << "couldn't add file " << it->realPath << std::endl;
-
-    loadbar(toAdd.size(), ++counter);
   }
 
-  std::cout << "Compressing mpq" << std::endl;
+  std::cout << std::endl;
   SFileCompactArchive(mpq, NULL, false);
 
   SFileFlushArchive(mpq);
