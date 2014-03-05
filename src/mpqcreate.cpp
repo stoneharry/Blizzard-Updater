@@ -43,6 +43,8 @@ try
 {
   po::options_description desc("Required options");
   desc.add_options()
+      ("help,h", "produce help message")
+      ("force,f", "overwrite existing files")
       ("mpq", po::value<std::string>(), "the mpq to create")
       ("files", po::value<std::vector<std::string> >(), "input files");
 
@@ -55,15 +57,24 @@ try
   po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
   po::notify(vm);
 
-  if (!vm.count("files") || !vm.count("mpq"))
+  if (!vm.count("files") || !vm.count("mpq") || vm.count("help"))
   {
-      std::cout << "usage: <mpq> [<files> ...]" << std::endl;
+      std::cout << "usage: <mpq> [<files> ...]" << std::endl << std::endl
+                << desc << std::endl;
       return 1;
   }
 
   std::vector<std::string> files(vm["files"].as< std::vector<std::string> >());
   std::vector<FileEntry> toAdd;
   fs::path mpqPath(vm["mpq"].as<std::string>());
+
+  if(fs::exists(mpqPath))
+  {
+    if(vm.count("force"))
+      fs::remove(mpqPath);
+    else
+      throw std::runtime_error("mpq does already exist");
+  }
 
   for(std::vector<std::string>::iterator path = files.begin(); path != files.end(); ++path)
   {
