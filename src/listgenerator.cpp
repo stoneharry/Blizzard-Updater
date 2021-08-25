@@ -25,9 +25,13 @@ try
   {
     if(!fs::is_regular_file(it->status()))
       continue;
+    const auto ext = it->path().extension();
 
-    if(it->path().parent_path() == inDir)
-      continue;
+    if (ext == ".lst" || ext == ".html" || ext== ".cmd" || ext == ".txt")
+        continue;
+
+    //if(it->path().parent_path() == inDir)
+      //continue;
 
     std::cout << "processing file " << it->path() << std::endl;
 
